@@ -7,9 +7,9 @@ NUMBER_OF_DONE_TASKS: number of completed tasks
 TOTAL_NUMBER_OF_TASKS:
 total number of tasks, which is the sum of completed and non-completed tasks
 """
+import csv
 import requests
 import sys
-import csv
 
 
 if __name__ == "__main__":
