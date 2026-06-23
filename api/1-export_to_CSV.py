@@ -1,0 +1,44 @@
+#!/usr/bin/python3
+"""Get employee data.
+First line:
+Employee EMPLOYEE_NAME is done with tasks(DONE_TASKS/TOTAL_TASKS):
+EMPLOYEE_NAME: name of the employee
+NUMBER_OF_DONE_TASKS: number of completed tasks
+TOTAL_NUMBER_OF_TASKS:
+total number of tasks, which is the sum of completed and non-completed tasks
+"""
+import requests
+import sys
+import csv
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        exit()
+    employee_id = sys.argv[1]
+    user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+    user = requests.get(user_url).json()
+    username = user.get("username")
+
+    # Get employee todos
+    todos_url = (
+        f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
+    )
+    todos = requests.get(todos_url).json()
+
+    # Filter completed tasks
+    completed = [task for task in todos if task.get("completed")]
+
+    # Into csv file
+    filename = f"{employee_id}.csv"
+
+    with open(filename, mode="w", newline="") as file:
+        writer = csv.writer(file)
+
+        for task in todos:
+            writer.writerow([
+                employee_id,
+                username,
+                task.get("completed"),
+                task.get("title")
+                ])
