@@ -1,10 +1,16 @@
 #!/usr/bin/python3
-
+"""Get employee data.
+First line: Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
+EMPLOYEE_NAME: name of the employee
+NUMBER_OF_DONE_TASKS: number of completed tasks
+TOTAL_NUMBER_OF_TASKS: total number of tasks, which is the sum of completed and non-completed tasks"""
 import requests
 import sys
-"""Get employee data"""
+
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        exit()
     employee_id = sys.argv[1]
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     user = requests.get(user_url).json()
