@@ -33,7 +33,7 @@ if __name__ == "__main__":
     filename = f"{employee_id}.csv"
 
     with open(filename, mode="w", newline="") as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
 
         for task in todos:
             writer.writerow([
